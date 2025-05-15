@@ -3,7 +3,7 @@ project(snake C)
 
 set(CMAKE_C_STANDARD 17)
 
-add_executable(snake main.c)
+add_executable(snake main.c board.c menu.c leaderboard.c)
 
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
