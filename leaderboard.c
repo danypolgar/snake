@@ -38,14 +38,20 @@ void save_leaderboard() {
     }
 }
 
-void update_leaderboard(const char *player_name, int player_score) {
+void update_leaderboard(char *player_name, int player_score) {
     ScoreEntry new_entry;
-    strncpy(new_entry.name, player_name, MAX_NAME_LENGTH);
+    if (strcmp(player_name, "") == 0) {
+        strncpy(new_entry.name, "unknown", MAX_NAME_LENGTH);
+    } else {
+        strncpy(new_entry.name, player_name, MAX_NAME_LENGTH);
+    }
     new_entry.name[MAX_NAME_LENGTH - 1] = '\0';
     new_entry.score = player_score;
 
     int pos = leaderboard_size;
-    if (leaderboard_size < MAX_LEADERBOARD) leaderboard_size++;
+    if (leaderboard_size < MAX_LEADERBOARD) {
+        leaderboard_size++;
+    }
     for (int i = 0; i < leaderboard_size - 1; i++) {
         if (player_score > leaderboard[i].score) {
             pos = i;
@@ -60,13 +66,13 @@ void update_leaderboard(const char *player_name, int player_score) {
     save_leaderboard();
 }
 
-void show_leaderboard(int width) {
+void show_leaderboard() {
     clear();
-    mvprintw(1, (width - 14) / 2, "Leaderboard:");
+    mvprintw(1, 13, "Leaderboard:");
     for (int i = 0; i < leaderboard_size; i++) {
-        mvprintw(3 + i, (width - 24) / 2, "%2d. %-10s %5d", i + 1, leaderboard[i].name, leaderboard[i].score);
+        mvprintw(3 + i, 8, "%2d. %-10s %5d", i + 1, leaderboard[i].name, leaderboard[i].score);
     }
-    mvprintw(15, (width - 28) / 2, "Press any key to exit...");
+    mvprintw(15, 6, "Press any key to exit...");
     refresh();
     getch();
 }

@@ -4,7 +4,7 @@
 int delay = 100000;
 
 
-int menu(int width) {
+int menu() {
     int speed_index = 1, head_index = 0, fruit_index = 0, color_index = 0, obstacle_index = 0;
     int option = 0;
 
@@ -23,38 +23,42 @@ int menu(int width) {
 
         const int speed_values[] = {150000, 100000, 60000};
         clear();
-        mvprintw(3, (width - 14) / 2, "--- Snake Game ---");
+        mvprintw(3, 13, "--- Snake Game ---");
 
         for (int i = 0; i < max_options; i++) {
-            const char *color_names[] = {"Green/Magenta", "Red/Yellow", "Cyan/Blue"};
-            const char *obstacle_labels[] = {"None", "Few", "Many"};
             const char *speed_labels[] = {"Slow", "Normal", "Fast"};
-            if (i == option)
+            const char *obstacle_labels[] = {"None", "Few", "Many"};
+            const char *color_names[] = {"Green/Magenta", "Red/Yellow", "Cyan/Blue"};
+            const int options_width = 10;
+            if (i == option) {
                 attron(A_REVERSE);
+            }
             switch (i) {
                 case 0:
-                    mvprintw(6 + i * 2, width/2 - 40, "<-- Speed: %s -->", speed_labels[speed_index]);
+                    mvprintw(6 + i * 2, options_width, "<-- Speed: %s -->", speed_labels[speed_index]);
                     break;
                 case 1:
-                    mvprintw(6 + i * 2, width/2 - 40, "<-- Head:  %s -->", head_symbols[head_index]);
+                    mvprintw(6 + i * 2, options_width, "<-- Head:  %s -->", head_symbols[head_index]);
                     break;
                 case 2:
-                    mvprintw(6 + i * 2, width/2 - 40, "<-- Fruit: %s -->", fruit_symbols[fruit_index]);
+                    mvprintw(6 + i * 2, options_width, "<-- Fruit: %s -->", fruit_symbols[fruit_index]);
                     break;
                 case 3:
-                    mvprintw(6 + i * 2, width/2 - 40, "<-- Color Theme: %s -->", color_names[color_index]);
+                    mvprintw(6 + i * 2, options_width, "<-- Color Theme: %s -->", color_names[color_index]);
                     break;
                 case 4:
-                    mvprintw(6 + i * 2, width/2 - 40, "<-- Obstacles: %s -->", obstacle_labels[obstacle_index]);
+                    mvprintw(6 + i * 2, options_width, "<-- Obstacles: %s -->", obstacle_labels[obstacle_index]);
                     break;
             }
-            if (i == option)
+            if (i == option) {
                 attroff(A_REVERSE);
+            }
         }
 
-        mvprintw(17, (width - 16) / 2, "Move with the arrow keys");
-        mvprintw(18, (width - 16) / 2, "Press Enter to Start");
-        mvprintw(19, (width - 16) / 2, "Press ESC to Quit");
+        const int manual_width = 12;
+        mvprintw(17, manual_width, "Move with the arrow keys");
+        mvprintw(18, manual_width, "Press Enter to Start");
+        mvprintw(19, manual_width, "Press ESC to Quit");
         refresh();
 
         int ch = getch();

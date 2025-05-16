@@ -12,7 +12,7 @@ char fruit_char = '*';
 int obstacle_level = 0;
 
 int main() {
-    if (!menu(WIDTH)) {
+    if (!menu()) {
         endwin();
         return 0;
     }
@@ -38,7 +38,7 @@ int main() {
     noecho();
 
     update_leaderboard(name, score);
-    show_leaderboard(WIDTH);
+    show_leaderboard();
 
     endwin();
     return 0;
